@@ -1,0 +1,80 @@
+/** {
+  outline: 1px solid red !important;
+}*/
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -box-sizing: border-box;
+}
+
+body {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  background: black;
+  background-repeat: no-repeat;
+  background-size: auto 100px;
+  background-attachment: fixed;
+}
+
+input {
+  background: grey;
+  font-size: 18px;
+}
+
+form {
+  display: inline-block;
+}
+
+.centered {
+  text-align: center;
+}
+
+#pizzaSize {
+  font-weight: 800;
+}
+
+.randomPizzaContainer {
+  float: left;
+}
+
+.pizza-size--small .randomPizzaContainer {
+  width: 25%;
+}
+
+.pizza-size--small .randomPizzaContainer:nth-child(4n+1) {
+  clear: left;
+}
+
+.pizza-size--medium .randomPizzaContainer {
+  width: 33.33%;
+  min-height: 325px;
+}
+
+.pizza-size--medium .randomPizzaContainer:nth-child(3n+1) {
+  clear: left;
+}
+
+.pizza-size--large .randomPizzaContainer {
+  width: 50%;
+  min-height: 325px;
+}
+
+.pizza-size--large .randomPizzaContainer:nth-child(2n+1) {
+  clear: left;
+}
+
+.randomPizzaContainer:after {
+  content: "";
+  display: table;
+  clear:both;
+}
+
+ .container {
+  background-color: rgba(240, 60, 60, 0.8);
+}

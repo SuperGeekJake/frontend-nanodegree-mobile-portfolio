@@ -1,0 +1,32 @@
+{
+  "name": "frontend-nanodegree-mobile-portfolio",
+  "version": "1.0.0",
+  "description": "Website optimization project for the FEND at Udacity",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SuperGeekJake/frontend-nanodegree-mobile-portfolio.git"
+  },
+  "author": "SuperGeekJake",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SuperGeekJake/frontend-nanodegree-mobile-portfolio/issues"
+  },
+  "homepage": "https://github.com/SuperGeekJake/frontend-nanodegree-mobile-portfolio#readme",
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-uglify": "^1.5.3",
+    "run-sequence": "^1.2.0",
+    "tsify": "^0.16.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
