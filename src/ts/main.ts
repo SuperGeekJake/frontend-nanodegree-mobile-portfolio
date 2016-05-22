@@ -8,12 +8,14 @@ interface EventChangeTarget {
 }
 
 window.addEventListener('load', () => {
+  // REFACTOR: Grouped and reduced DOM queries
   const $pizzaSize = document.getElementById('sizeSlider');
   const $pizzaSizeIndicator = document.getElementById('pizzaSize');
   const $pizzasContainer = document.getElementById('randomPizzas');
 
   // Pizzas UI Scripting
   generatePizzas($pizzasContainer);
+  // REFACTOR: Used addEventListener vs onchange attribute
   $pizzaSize.addEventListener('change', (event: EventChangeTarget) => {
     resizePizzas($pizzasContainer, $pizzaSizeIndicator, event.target.value)
   });
@@ -41,6 +43,7 @@ function generatePizzas($pizzasContainer: HTMLElement) {
 
   // This for-loop actually creates and appends all of the pizzas when the page loads
   for (var i = 2; i < 100; i++) {
+    // REFACTOR: Moved random pizza implementation to a class
     $pizzasContainer.appendChild(new Pizza().html(i));
   }
 
@@ -57,6 +60,7 @@ function generatePizzas($pizzasContainer: HTMLElement) {
 function resizePizzas($pizzasContainer: HTMLElement, $pizzaSizeIndicator: HTMLElement, size: string) {
   window.performance.mark("mark_start_resize");   // User Timing API function
 
+  // REFACTOR: Implementation now modifies class names of parent instead of the properties of every child element
   switch(size) {
     case "1":
       $pizzaSizeIndicator.innerHTML = "Small";
