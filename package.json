@@ -4,7 +4,9 @@
   "description": "Website optimization project for the FEND at Udacity",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp",
+    "serve": "browser-sync start -s dist"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,7 @@
   },
   "homepage": "https://github.com/SuperGeekJake/frontend-nanodegree-mobile-portfolio#readme",
   "devDependencies": {
+    "browser-sync": "^2.12.8",
     "browserify": "^13.0.1",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
