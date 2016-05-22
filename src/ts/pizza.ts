@@ -1,9 +1,13 @@
-import {ingredients, adjectives, nouns} from './data';
+import {ingredients, adjectives, nouns} from './data'; // REFACTOR: Moved string arrays to separate file
 import {randomFromArray, capitalize, itemize} from './utils';
 
 const adjectiveCategories = Object.keys(adjectives);
 const nounCategories = Object.keys(nouns);
 
+/**
+ * Pizza Model Class
+ * Randomized name and ingredients with ability to convert to a HTML element.
+ */
 export class Pizza {
   public name: string;
   public meats: Array<string> = [];
@@ -12,6 +16,10 @@ export class Pizza {
   public sauce: string;
   public crust: string;
 
+  /**
+   * Create Pizza instance with random name and ingredients
+   * @return {this} Pizza instance
+   */
   constructor() {
     this.generateName();
     this.selectRandomMeats();
@@ -23,7 +31,14 @@ export class Pizza {
     return this;
   }
 
-  public html(elID: string|number = 0, elClasses: string = 'randomPizzaContainer') {
+ /**
+  * Returns an HTMLElement repesentation of the pizza
+  * @param  {string|number = 0}                      elID      Desired element ID attribute
+  * @param  {string        = 'randomPizzaContainer'} elClasses Desired element class attribute
+  * @return {HTMLElement}                                      Pizza HTML
+  */
+  public html(elID: string|number = 0, elClasses: string = 'randomPizzaContainer'): HTMLElement {
+    // Create <li>s from ingredients
     let itemsString = '';
     itemsString += itemize(this.meats);
     itemsString += itemize(this.nonMeats);
@@ -31,6 +46,7 @@ export class Pizza {
     itemsString += itemize(this.sauce);
     itemsString += itemize(this.crust);
 
+    // Create HTMLElement
     let $pizza = document.createElement('div');
     $pizza.id = `pizza${elID}`;
     $pizza.className = elClasses;
@@ -47,6 +63,10 @@ export class Pizza {
     return $pizza;
   }
 
+  /**
+   * Assign random name
+   * @return {this} Pizza instance
+   */
   public generateName() {
     let randomAdjectiveCategory = randomFromArray(adjectiveCategories);
     let randomNounCategory = randomFromArray(nounCategories);
@@ -59,6 +79,10 @@ export class Pizza {
     return this;
   }
 
+  /**
+   * Assign random meats
+   * @return {this} Pizza instance
+   */
   public selectRandomMeats() {
     let numberOfMeats = Math.floor((Math.random() * 4));
 
@@ -69,6 +93,10 @@ export class Pizza {
     return this;
   }
 
+  /**
+   * Assign random non-meats
+   * @return {this} Pizza instance
+   */
   public selectRandomNonMeats() {
     let numberOfNonMeats = Math.floor((Math.random() * 3));
 
@@ -79,6 +107,10 @@ export class Pizza {
     return this;
   }
 
+  /**
+   * Assign random cheeses
+   * @return {this} Pizza instance
+   */
   public selectRandomCheeses() {
     let numberOfCheeses = Math.floor((Math.random() * 2));
 
@@ -89,12 +121,20 @@ export class Pizza {
     return this;
   }
 
+  /**
+   * Assign random sauce
+   * @return {this} Pizza instance
+   */
   public selectRandomSauce() {
     this.sauce = randomFromArray(ingredients.sauces);
 
     return this;
   }
 
+  /**
+   * Assign random crust
+   * @return {this} Pizza instance
+   */
   public selectRandomCrust() {
     this.crust = randomFromArray(ingredients.crusts);
 

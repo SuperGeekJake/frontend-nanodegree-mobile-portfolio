@@ -7,6 +7,9 @@ interface EventChangeTarget {
   }
 }
 
+/**
+ * Webpage scripting start - where the magic happens
+ */
 window.addEventListener('load', () => {
   // REFACTOR: Grouped and reduced DOM queries
   const $pizzaSize = document.getElementById('sizeSlider');
@@ -20,7 +23,7 @@ window.addEventListener('load', () => {
     resizePizzas($pizzasContainer, $pizzaSizeIndicator, event.target.value)
   });
 
-  // Initialize background
+  // Initialize background animation
   bgAnimation.init();
 
   console.info('Webpage has finished loading.');
@@ -38,6 +41,10 @@ window.addEventListener('load', () => {
   console.log(`Time to load webfonts: ${timeToLoadWebfonts[0].duration}ms`);
 });
 
+/**
+ * Creates 100 random pizza elements
+ * @param  {HTMLElement} $pizzasContainer Random pizza container
+ */
 function generatePizzas($pizzasContainer: HTMLElement) {
   window.performance.mark("mark_start_generating"); // collect timing data
 

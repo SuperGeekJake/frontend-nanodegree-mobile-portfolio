@@ -1,4 +1,8 @@
 /**
+ * Helper Functions
+ */
+
+/**
  * Returns the value of a random element in an array
  * @param  {Array<any>} arr Array of elemets to be selected from
  * @return {any}            Random element value

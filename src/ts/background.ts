@@ -1,5 +1,9 @@
 import {logAverageFrame} from './utils';
 
+/**
+ * Background Animation Singleton
+ * Handles the CSS animation of background pizza images for the pizzeria webpage
+ */
 class BackgroundAnimation {
   public imagePath: string = 'img/pizza.png';
   public imageWidth: number = 73.333;
@@ -14,8 +18,12 @@ class BackgroundAnimation {
   private _ticking: boolean = false;
   private _frame: number = 0;
 
+  // Setting of properties is abstracted above
   constructor() {}
 
+  /**
+   * Initialize animation and listen for events
+   */
   public init() {
     this._reset();
 
@@ -30,6 +38,9 @@ class BackgroundAnimation {
     });
   }
 
+  /**
+   * Reset/set of animation in regards to the number of rows/columns
+   */
   private _reset() {
     let newRows = Math.ceil(window.innerHeight / this.spacing);
     let newCols = Math.ceil(window.innerWidth / this.spacing);
@@ -48,8 +59,8 @@ class BackgroundAnimation {
     this._frame++;
     window.performance.mark("mark_start_frame");
 
-    this._getImageCSS();
-    this._getPositionCSS();
+    this._setImageCSS();
+    this._setPositionCSS();
     this._ticking = false;
 
     // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -62,10 +73,13 @@ class BackgroundAnimation {
     }
   }
 
-  // Inspiration: http://www.html5rocks.com/en/tutorials/speed/animations/
+  /**
+   * Request an animation frame unless one is already requested
+   */
   private _requestTick() {
     if (this._ticking) return;
 
+    // Inspiration: http://www.html5rocks.com/en/tutorials/speed/animations/
     window.requestAnimationFrame(() => this._update());
     this._ticking = true;
   }
@@ -90,7 +104,10 @@ class BackgroundAnimation {
     return positions;
   }
 
-  private _getImageCSS() {
+  /**
+   * Create and set the CSS value for background-image
+   */
+  private _setImageCSS() {
     // Generate background-image only if needed
     if (this._imageCSS !== '') return;
 
@@ -109,7 +126,10 @@ class BackgroundAnimation {
     this._$el.style.backgroundImage = imageCSS;
   }
 
-  private _getPositionCSS() {
+  /**
+   * Create and set the CSS value for background-position
+   */
+  private _setPositionCSS() {
     const posList = this._calulatePositions();
 
     let posCSS = '';
@@ -124,4 +144,5 @@ class BackgroundAnimation {
   }
 }
 
+// Export Singleton
 export const bgAnimation = new BackgroundAnimation();
