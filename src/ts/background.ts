@@ -93,7 +93,7 @@ class BackgroundAnimation {
         // TODO: Calculte positioning
         let fromTop = y * this.spacing;
         let phase = Math.sin((window.scrollY / 1250) + (i % 5));
-        let fromLeft = x * this.spacing + 100 * phase;
+        let fromLeft = (i % this._cols) * this.spacing + 100 * phase;
         positions[i] = [fromLeft, fromTop];
 
         // Increment total index
