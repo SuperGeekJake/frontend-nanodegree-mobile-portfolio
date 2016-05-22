@@ -21,7 +21,19 @@ window.addEventListener('load', () => {
   // Initialize background
   bgAnimation.init();
 
-  console.info('Pizza: App is loaded.');
+  console.info('Webpage has finished loading.');
+
+  // Performance measuring
+
+  // Pizza Generation
+  window.performance.measure("measure_pizza_generation", "mark_start_generating", "mark_end_generating");
+  let timeToGenerate = window.performance.getEntriesByName("measure_pizza_generation");
+  console.log(`Time to generate pizzas on load: ${timeToGenerate[0].duration}ms`);
+
+  // Webfonts loading
+  window.performance.measure("measure_webfonts_loading", "mark_start_webfonts", "mark_end_webfonts");
+  let timeToLoadWebfonts = window.performance.getEntriesByName("measure_webfonts_loading");
+  console.log(`Time to load webfonts: ${timeToLoadWebfonts[0].duration}ms`);
 });
 
 function generatePizzas($pizzasContainer: HTMLElement) {
@@ -34,9 +46,6 @@ function generatePizzas($pizzasContainer: HTMLElement) {
 
   // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
   window.performance.mark("mark_end_generating");
-  window.performance.measure("measure_pizza_generation", "mark_start_generating", "mark_end_generating");
-  var timeToGenerate = window.performance.getEntriesByName("measure_pizza_generation");
-  console.log("Time to generate pizzas on load: " + timeToGenerate[0].duration + "ms");
 }
 
 /**
@@ -71,6 +80,6 @@ function resizePizzas($pizzasContainer: HTMLElement, $pizzaSizeIndicator: HTMLEl
   // User Timing API is awesome
   window.performance.mark("mark_end_resize");
   window.performance.measure("measure_pizza_resize", "mark_start_resize", "mark_end_resize");
-  var timeToResize = window.performance.getEntriesByName("measure_pizza_resize");
-  console.log("Time to resize pizzas: " + timeToResize[timeToResize.length-1].duration + "ms");
+  let timeToResize = window.performance.getEntriesByName("measure_pizza_resize");
+  console.log(`Time to resize pizzas: ${timeToResize[timeToResize.length-1].duration}ms`);
 }
