@@ -56,7 +56,13 @@
 
     <script>window.performance.mark("mark_start_webfonts");</script>
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-    <script>window.performance.mark("mark_end_webfonts");</script>
+    <script>
+      // Webfonts loading
+      window.performance.mark("mark_end_webfonts");
+      window.performance.measure("measure_webfonts_loading", "mark_start_webfonts", "mark_end_webfonts");
+      let timeToLoadWebfonts = window.performance.getEntriesByName("measure_webfonts_loading");
+      console.log(`Time to load webfonts: ${timeToLoadWebfonts[0].duration}ms`);
+    </script>
 
     <link rel="stylesheet" href="css/style.css" media="all">
     <link rel="stylesheet" href="css/print.css" media="print">

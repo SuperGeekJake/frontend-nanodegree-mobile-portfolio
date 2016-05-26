@@ -20,6 +20,7 @@ body {
   background-repeat: no-repeat;
   background-size: auto 100px;
   background-attachment: fixed;
+  will-change: background-position;
 }
 
 input {

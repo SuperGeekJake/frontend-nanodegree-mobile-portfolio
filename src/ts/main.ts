@@ -34,11 +34,6 @@ window.addEventListener('load', () => {
   window.performance.measure("measure_pizza_generation", "mark_start_generating", "mark_end_generating");
   let timeToGenerate = window.performance.getEntriesByName("measure_pizza_generation");
   console.log(`Time to generate pizzas on load: ${timeToGenerate[0].duration}ms`);
-
-  // Webfonts loading
-  window.performance.measure("measure_webfonts_loading", "mark_start_webfonts", "mark_end_webfonts");
-  let timeToLoadWebfonts = window.performance.getEntriesByName("measure_webfonts_loading");
-  console.log(`Time to load webfonts: ${timeToLoadWebfonts[0].duration}ms`);
 });
 
 /**

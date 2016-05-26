@@ -16,6 +16,7 @@ class BackgroundAnimation {
   private _totalImages: number;
   private _imageCSS: string = '';
   private _ticking: boolean = false;
+  private _scrollY: number = 0;
   private _frame: number = 0;
 
   // Setting of properties is abstracted above
@@ -29,13 +30,8 @@ class BackgroundAnimation {
 
     // Listen for scroll and resize events
     // TODO: Resize event
-    window.addEventListener('scroll', () => {
-      this._requestTick();
-    });
-
-    window.addEventListener('resize', () => {
-      this._reset();
-    });
+    window.addEventListener('scroll', () => this._onScroll());
+    window.addEventListener('resize', () => this._reset());
   }
 
   /**
@@ -55,13 +51,18 @@ class BackgroundAnimation {
     this._requestTick();
   }
 
+  /**
+   * Update animation
+   */
   private _update() {
+    this._ticking = false;
+    let scrollY = this._scrollY;
+
     this._frame++;
     window.performance.mark("mark_start_frame");
 
     this._setImageCSS();
-    this._setPositionCSS();
-    this._ticking = false;
+    this._setPositionCSS(scrollY);
 
     // User Timing API to the rescue again. Seriously, it's worth learning.
     // Super easy to create custom metrics.
@@ -74,6 +75,14 @@ class BackgroundAnimation {
   }
 
   /**
+   * Handles requesting animation on scroll
+   */
+  private _onScroll() {
+    this._scrollY = window.scrollY;
+    this._requestTick();
+  }
+
+  /**
    * Request an animation frame unless one is already requested
    */
   private _requestTick() {
@@ -82,26 +91,6 @@ class BackgroundAnimation {
     // Inspiration: http://www.html5rocks.com/en/tutorials/speed/animations/
     window.requestAnimationFrame(() => this._update());
     this._ticking = true;
-  }
-
-  private _calulatePositions() {
-    let positions = [];
-
-    let i = 0;
-    for (let y = 0; y < this._rows; y++) {
-      for (let x = 0; x < this._cols; x++) {
-        // TODO: Calculte positioning
-        let fromTop = y * this.spacing;
-        let phase = Math.sin((window.scrollY / 1250) + (i % 5));
-        let fromLeft = (i % this._cols) * this.spacing + 100 * phase;
-        positions[i] = [fromLeft, fromTop];
-
-        // Increment total index
-        i++;
-      }
-    }
-
-    return positions;
   }
 
   /**
@@ -129,17 +118,23 @@ class BackgroundAnimation {
   /**
    * Create and set the CSS value for background-position
    */
-  private _setPositionCSS() {
-    const posList = this._calulatePositions();
-
+  private _setPositionCSS(scrollY) {
+    // let positions = [];
     let posCSS = '';
+
     for (let i = 0; i < this._totalImages; i++) {
-      posCSS += `${posList[i][0]}px ${posList[i][1]}px`;
+      let fromTop = Math.floor(i / this._cols) * this.spacing;
+      let phase = Math.sin((scrollY / 1250) + (i % 5));
+      let fromLeft = (i % this._cols) * this.spacing + 100 * phase;
+
+      // positions[i] = [fromLeft, fromTop];
+      posCSS += `${fromLeft}px ${fromTop}px`;
 
       // Add comman unless last
       if (i < this._totalImages - 1) posCSS += ',';
     }
 
+    // return positions;
     this._$el.style.backgroundPosition = posCSS;
   }
 }
