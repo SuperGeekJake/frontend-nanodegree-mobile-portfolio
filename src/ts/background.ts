@@ -6,8 +6,6 @@ import {logAverageFrame} from './utils';
  */
 class BackgroundAnimation {
   public imagePath: string = 'img/pizza.png';
-  public imageWidth: number = 73.333;
-  public imageHeight: number = 100;
   public spacing: number = 256;
 
   private _$el: HTMLElement = document.body;
